@@ -1,0 +1,10 @@
+[
+  {
+    "id": "ISS-1",
+    "title": "Issue 1",
+    "description": "Description of issue 1",
+    "applicationId": 1,
+    "userId": "manager",
+    "statusId": 1
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "guest",
+    "firstName": "Guest",
+    "lastName": "",
+    "roles": [],
+    "token": "",
+    "userName": "guest"
+  },
+  {
+    "id": "manager",
+    "firstName": "Manager",
+    "lastName": "",
+    "roles": [],
+    "token": "",
+    "userName": "manager"
+  }
+]

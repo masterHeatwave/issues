@@ -1,0 +1,15 @@
+{
+  "short_name": "issuetracking",
+  "name": "",
+  "icons": [
+    {
+      "src": "favicon-188x130.png",
+      "type": "image/png",
+      "sizes": "188x130"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
