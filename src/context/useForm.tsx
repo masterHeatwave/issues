@@ -22,6 +22,7 @@ import {
   update,
   uploadAttachment
 } from 'src/context/actions/issues'
+import { fetchMessages, updateMessages } from 'mock-server/actions/getData'
 import useAuth from 'src/context/useAuth'
 import useDialogs from 'src/context/useDialogs'
 import useSnackbar from 'src/context/useSnackbar'
@@ -41,9 +42,10 @@ const FormContext = React.createContext<IState>({} as IState)
 
 interface IFormProvider {
   children?: React.ReactNode
+  onDeleteMessage: (messageId: string) => void;
 }
 
-const FormProvider: React.FC<Partial<IFormProvider>> = ({ children }) => {
+const FormProvider: React.FC<Partial<IFormProvider>> = ({ children, onDeleteMessage = () => { } }) => {
   const { user } = useAuth()
   const [issue, setIssue] = React.useState<TIssue | null>(null)
   const [open, setOpen] = React.useState<boolean>(false)
@@ -92,6 +94,31 @@ const FormProvider: React.FC<Partial<IFormProvider>> = ({ children }) => {
       setLoading(false)
     }
   }, [])
+
+  const handleDeleteMessage = async (messageId: string) => {
+    try {
+      let messages = fetchMessages();
+
+      // Find the index of the message to be deleted
+      const index = messages.findIndex(message => message.id === parseInt(messageId));
+
+      if (index !== -1) {
+        messages.splice(index, 1);
+
+        // Update the messages in the data source
+        updateMessages(messages);
+
+        // Update the parent component
+        onDeleteMessage(messageId);
+        console.log("Message deleted successfully");
+      } else {
+        console.log("Message was not found");
+      }
+    } catch (error) {
+      console.error("An error occurred while deleting the message:", error);
+    }
+  };
+
   const handleSubmit = React.useCallback(async (issueDTO: TIssuePayload) => {
     if (!issueDTO.description?.trim()) {
       issueDTO.description = null
@@ -483,7 +510,7 @@ const FormProvider: React.FC<Partial<IFormProvider>> = ({ children }) => {
             </Box>
           </Box>
         )}
-        {!!issue && <MessageList onAttachmentRender={handleAttachmentRender} issue={issue} />}
+        {!!issue && <MessageList onAttachmentRender={handleAttachmentRender} issue={issue} onDeleteMessage={onDeleteMessage} />}
       </IssueModal>
     </FormContext.Provider>
   )

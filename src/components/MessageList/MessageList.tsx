@@ -8,19 +8,25 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import NameAvatar from 'src/components/NameAvatar/NameAvatar';
+import DeleteButton from 'src/components/DeleteButton/DeleteButton'; 
 import { formatContent, formatDate } from 'src/helpers';
 
 interface IMessageList {
   children?: React.ReactNode;
   issue: TIssue;
   onAttachmentRender?: (message: TMessage) => React.ReactNode;
+  onDeleteMessage: (messageId: string) => void;
 }
 
-const MessageList: React.FC<IMessageList> = ({ children, issue, onAttachmentRender }) => {
+const MessageList: React.FC<IMessageList> = ({ children, issue, onAttachmentRender, onDeleteMessage }) => {
   // Check if there are no messages
   if (issue.messages.length === 0) {
     return <Typography>No messages found</Typography>;
   }
+
+const handleDeleteMessage = (messageId: string) => {
+    onDeleteMessage(messageId); // Call the onDeleteMessage function passed from the parent component
+  };
 
   return (
     <List dense sx={{ width: '100%', bgcolor: 'transparent', px: 0 }}>
@@ -35,7 +41,7 @@ const MessageList: React.FC<IMessageList> = ({ children, issue, onAttachmentRend
         const formattedContent = formatContent(content);
         return (
           <React.Fragment key={message.id}>
-            <ListItem alignItems="flex-start">
+            <ListItem alignItems="flex-start" key={message.id}>
               <ListItemAvatar>
                 <NameAvatar caption={`${message.user.firstName.charAt(0)}${message.user.lastName.charAt(0)}`} />
               </ListItemAvatar>
@@ -87,6 +93,7 @@ const MessageList: React.FC<IMessageList> = ({ children, issue, onAttachmentRend
                   </>
                 }
               />
+              <DeleteButton onDelete={() => handleDeleteMessage(message.id.toString())} />
             </ListItem>
             {onAttachmentRender?.(message)}
             {issue.messages.indexOf(message) !== issue.messages.length - 1 && (
