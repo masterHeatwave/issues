@@ -1,10 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\mock-server",
+    "\\mock-server\\actions",
+    "\\mock-server\\data",
     "\\src",
     "\\src\\components",
-    "\\src\\components\\DeleteButton",
-    "\\src\\components\\MessageList"
+    "\\src\\services"
   ],
   "PreviewInSolutionExplorer": false
 }
