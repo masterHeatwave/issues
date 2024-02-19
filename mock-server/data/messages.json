@@ -214,23 +214,5 @@
     "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     "dateCreated": "2024-01-01T00:26:00",
     "attachments": []
-  },
-  {
-    "id": 28,
-    "issueId": "ISS-1",
-    "userId": "manager",
-    "hidden": false,
-    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    "dateCreated": "2024-01-01T00:27:00",
-    "attachments": []
-  },
-  {
-    "id": 29,
-    "issueId": "ISS-1",
-    "userId": "guest",
-    "hidden": false,
-    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    "dateCreated": "2024-01-01T00:28:00",
-    "attachments": []
   }
 ]

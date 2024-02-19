@@ -11,7 +11,6 @@ const router = jsonServer.router('db.json');
 
 const middlewares = jsonServer.defaults({ bodyParser: true });
 
-
 server.use(middlewares);
 
 server.post('/api/auth/login', postLogin);
