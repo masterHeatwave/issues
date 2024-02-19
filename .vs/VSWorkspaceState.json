@@ -6,7 +6,8 @@
     "\\mock-server\\data",
     "\\src",
     "\\src\\components",
-    "\\src\\services"
+    "\\src\\helpers"
   ],
+  "SelectedNode": "\\mock-server\\data\\messages.json",
   "PreviewInSolutionExplorer": false
 }

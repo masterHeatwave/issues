@@ -11,6 +11,16 @@ const router = jsonServer.router('db.json');
 
 const middlewares = jsonServer.defaults({ bodyParser: true });
 
+const express = require('express');
+const app = express();
+
+// Middleware to set Cache-Control header
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  next();
+});
+
+
 server.use(middlewares);
 
 server.post('/api/auth/login', postLogin);
