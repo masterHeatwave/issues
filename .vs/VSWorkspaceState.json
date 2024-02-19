@@ -1,12 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\mock-server",
-    "\\mock-server\\actions",
     "\\src",
     "\\src\\components",
-    "\\src\\context"
+    "\\src\\components\\DeleteButton",
+    "\\src\\components\\MessageList"
   ],
-  "SelectedNode": "\\src\\context\\useForm.tsx",
   "PreviewInSolutionExplorer": false
 }

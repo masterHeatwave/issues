@@ -1,56 +1,43 @@
-import React from 'react';
-import TIssue from 'src/structures/issue';
-import TMessage from 'src/structures/message';
-import { Chip, Typography, Avatar } from '@mui/material';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import NameAvatar from 'src/components/NameAvatar/NameAvatar';
-import DeleteButton from 'src/components/DeleteButton/DeleteButton'; 
-import { formatContent, formatDate } from 'src/helpers';
+import React from 'react'
+import TIssue from 'src/structures/issue'
+import TMessage from 'src/structures/message'
+import { Avatar, Chip, Divider, IconButton, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material'
+import DeleteButton from 'src/components/DeleteButton/DeleteButton'
+import NameAvatar from 'src/components/NameAvatar/NameAvatar'
+import { formatContent, formatDate } from 'src/helpers'
 
 interface IMessageList {
-  children?: React.ReactNode;
-  issue: TIssue;
-  onAttachmentRender?: (message: TMessage) => React.ReactNode;
-  onDeleteMessage: (messageId: string) => void;
+  children?: React.ReactNode
+  issue: TIssue
+  onAttachmentRender: (message: TMessage) => React.ReactNode
+  onDeleteMessage: (messageId: string) => void
 }
 
-const MessageList: React.FC<IMessageList> = ({ children, issue, onAttachmentRender, onDeleteMessage }) => {
+const MessageList: React.FC<IMessageList> = ({ issue, onDeleteMessage }) => {
   // Check if there are no messages
   if (issue.messages.length === 0) {
-    return <Typography>No messages found</Typography>;
+    return <Typography>No messages found</Typography>
   }
 
-const handleDeleteMessage = (messageId: string) => {
-    onDeleteMessage(messageId); // Call the onDeleteMessage function passed from the parent component
-  };
+  // Define handleDeleteMessage function
+  const handleDeleteMessage = (messageId: string) => {
+    onDeleteMessage(messageId)
+  }
 
   return (
     <List dense sx={{ width: '100%', bgcolor: 'transparent', px: 0 }}>
       {issue.messages.map(message => {
-        const {
-          userId,
-          content,
-          dateCreated,
-          user: { firstName, lastName },
-        } = message;
-        const userName = `${firstName} ${lastName}`;
-        const formattedContent = formatContent(content);
+        const { id, userId, content, dateCreated, user } = message
+        const { firstName, lastName } = user
+        const userName = `${firstName} ${lastName}`
+        const formattedContent = formatContent(content)
         return (
-          <React.Fragment key={message.id}>
-            <ListItem alignItems="flex-start" key={message.id}>
+          <React.Fragment key={id}>
+            <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                <NameAvatar caption={`${message.user.firstName.charAt(0)}${message.user.lastName.charAt(0)}`} />
+                <NameAvatar caption={`${firstName.charAt(0)}${lastName.charAt(0)}`} />
               </ListItemAvatar>
               <ListItemText
-                secondaryTypographyProps={{
-                  sx: {
-                    lineHeight: 1.5,
-                  },
-                }}
                 primary={
                   <Typography component="span" variant="body2" color="text.secondary">
                     {formatDate(dateCreated, 'PPpp')}
@@ -58,52 +45,25 @@ const handleDeleteMessage = (messageId: string) => {
                 }
                 secondary={
                   <>
-                    <Typography
-                      sx={{ display: 'inline-block', mt: 1, whiteSpace: 'pre-wrap' }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary">
+                    <Typography component="span" variant="body2" color="text.primary">
                       {userName}
-                      <Chip
-                        component="span"
-                        sx={{ ml: 1 }}
-                        size="small"
-                        color={
-                          userId === issue.userId
-                            ? 'primary'
-                            : issue.assignees.some(assignee => assignee.userId === userId)
-                              ? 'secondary'
-                              : undefined
-                        }
-                        label={
-                          userId === issue.userId
-                            ? 'Issuer'
-                            : issue.assignees.some(assignee => assignee.userId === userId)
-                              ? 'Assignee'
-                              : 'Watcher'
-                        }
-                      />
                     </Typography>
-                    <Typography
-                      component="span"
-                      variant="inherit"
-                      sx={{ whiteSpace: 'pre-wrap' }}>
+                    <Typography variant="inherit" sx={{ whiteSpace: 'pre-wrap' }}>
                       {` — ${formattedContent ?? ''}`}
                     </Typography>
                   </>
                 }
               />
-              <DeleteButton onDelete={() => handleDeleteMessage(message.id.toString())} />
+              <DeleteButton onDelete={() => handleDeleteMessage(id.toString())} messageId={id.toString()} />
             </ListItem>
-            {onAttachmentRender?.(message)}
             {issue.messages.indexOf(message) !== issue.messages.length - 1 && (
               <Divider variant="inset" component="li" />
             )}
           </React.Fragment>
-        );
+        )
       })}
     </List>
-  );
-};
+  )
+}
 
-export default MessageList;
+export default MessageList
